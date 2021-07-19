@@ -9,6 +9,7 @@
       "typescript": "3.3.3333"
    },
    "dependencies": {
+      "dotenv": "^8.6.0",
       "http-status-codes": "^2.1.4",
       "joi": "^10.6.0",
       "koa": "^2.13.1",

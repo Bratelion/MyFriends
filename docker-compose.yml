@@ -4,18 +4,18 @@ services:
   postgres:
     image: "postgres:13.3"
     ports:
-      - "5433:5433"
+      - "${TYPEORM_PORT}:${TYPEORM_PORT}"
     environment:
-      POSTGRES_USER: "postgres"
-      POSTGRES_PASSWORD: "dockerpass"
-      POSTGRES_DB: "MyFriends"
+      POSTGRES_USER: "${TYPEORM_USER}"
+      POSTGRES_PASSWORD: "${TYPEORM_PASSWORD}"
+      POSTGRES_DB: "${TYPEORM_DB}"
 
   app:
     build: .
     depends_on:
       - postgres
     ports:
-      - "3000:3000"
+      - "${APP_PORT}:${APP_PORT}"
     volumes:
       - .:/home/app/
       - /home/app/node_modules

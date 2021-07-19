@@ -4,7 +4,7 @@ WORKDIR home/app
 
 COPY package.json /home/app/
 COPY package-lock.json /home/app/
-
+COPY .env /home/app
 RUN npm i
 
 COPY . /home/app
