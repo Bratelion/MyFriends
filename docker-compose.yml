@@ -4,11 +4,11 @@ services:
   postgres:
     image: "postgres:13.3"
     ports:
-      - "${TYPEORM_PORT}:${TYPEORM_PORT}"
+      - "${POSTGRES_PORT}:${POSTGRES_PORT}"
     environment:
-      POSTGRES_USER: "${TYPEORM_USER}"
-      POSTGRES_PASSWORD: "${TYPEORM_PASSWORD}"
-      POSTGRES_DB: "${TYPEORM_DB}"
+      POSTGRES_USER: "${POSTGRES_USER}"
+      POSTGRES_PASSWORD: "${POSTGRES_PASSWORD}"
+      POSTGRES_DB: "${POSTGRES_DB}"
 
   app:
     build: .

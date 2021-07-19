@@ -10,5 +10,5 @@ RUN npm i
 COPY . /home/app
 
 EXPOSE 3000
-
+CMD [ "npm", "run", "migration:run" ]
 CMD [ "npm", "start" ]
