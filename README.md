@@ -3,7 +3,8 @@
 Steps to run this project:
 
 1. Run `npm i` command
-2. Run `docker-compose up` command
+2. Run `docker-compose build` command
+3. Run `docker-compose up` command
 
 
 Inside app container in Docker:
