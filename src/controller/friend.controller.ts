@@ -3,12 +3,30 @@ import * as Router from 'koa-router';
 import { getRepository, Repository } from 'typeorm';
 import { Friend } from '../entity/Friend'
 import * as HttpStatus from 'http-status-codes';
+import joi = require("joi");
+import validate = require("koa-joi-validate");
 
 const routerOpts: Router.IRouterOptions = {
   prefix: '/friends',
 };
 
 const router: Router = new Router(routerOpts);
+
+const FriendIdValidation = validate({
+	params: {
+		friend_id : joi.number().integer().required()
+	}
+});
+
+const PostNewFriendValidation = validate({
+	body: {
+		first_name : joi.string().required(),
+		last_name : joi.string().required(),
+		nickname : joi.string(),
+		rating: joi.number().integer().min(1).max(10)
+	}
+});
+
 
 router.get('/', async (ctx:Koa.Context) => {
   // Get the friend repository from TypeORM.
@@ -23,7 +41,7 @@ router.get('/', async (ctx:Koa.Context) => {
   };
 });
 
-router.get('/:friend_id', async (ctx:Koa.Context) => {
+router.get('/:friend_id', FriendIdValidation, async (ctx:Koa.Context) => {
   // Get the Friend repository from TypeORM.
   const friendRepo:Repository<Friend> = getRepository(Friend);
 
@@ -42,7 +60,7 @@ router.get('/:friend_id', async (ctx:Koa.Context) => {
   };
 });
 
-router.post('/', async (ctx:any) => {
+router.post('/', PostNewFriendValidation, async (ctx:any) => {
   // Get the Friend repository from TypeORM.
   const friendRepo:Repository<Friend> = getRepository(Friend);
 
@@ -65,7 +83,7 @@ router.post('/', async (ctx:any) => {
   };
 });
 
-router.delete('/:friend_id', async (ctx:Koa.Context) => {
+router.delete('/:friend_id', FriendIdValidation, async (ctx:Koa.Context) => {
 	// Get the friend repository from TypeORM.
 	const friendRepo:Repository<Friend> = getRepository(Friend);
   

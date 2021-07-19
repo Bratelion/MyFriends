@@ -1,0 +1,14 @@
+FROM node:16.4.2
+
+WORKDIR home/app
+
+COPY package.json /home/app/
+COPY package-lock.json /home/app/
+
+RUN npm i
+
+COPY . /home/app
+
+EXPOSE 3000
+
+CMD [ "npm", "start" ]
