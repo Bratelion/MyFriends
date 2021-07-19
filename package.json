@@ -1,0 +1,25 @@
+{
+   "name": "MyFriends4",
+   "version": "0.0.1",
+   "description": "Awesome project developed with TypeORM.",
+   "devDependencies": {
+      "@types/node": "^8.0.29",
+      "ts-node": "3.3.0",
+      "tsconfig-paths": "^3.10.1",
+      "typescript": "3.3.3333"
+   },
+   "dependencies": {
+      "http-status-codes": "^2.1.4",
+      "koa": "^2.13.1",
+      "koa-router": "^10.0.0",
+      "pg": "^8.4.0",
+      "reflect-metadata": "^0.1.10",
+      "typeorm": "^0.2.34"
+   },
+   "scripts": {
+      "start": "ts-node src/index.ts",
+      "typeorm": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js",
+      "migration:generate": "ts-node node_modules/.bin/typeorm migration:generate -n",
+      "migration:run": "ts-node node_modules/.bin/typeorm migration:run"
+   }
+}
