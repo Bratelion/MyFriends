@@ -18,3 +18,4 @@ export class Friend {
     @Column({nullable: true})
     rating : number;
 }
+
