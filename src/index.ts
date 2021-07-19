@@ -1,22 +1,35 @@
 import "reflect-metadata";
 import {createConnection} from "typeorm";
-import {Friend} from "./entity/Friend";
+import * as Koa from 'koa';
+import * as HttpStatus from 'http-status-codes';
+import * as bodyParser from 'koa-bodyparser';
+
+import FriendController from "./controller/friend.controller";
+
+const app:Koa = new Koa();
 
 createConnection().then(async connection => {
 
-    console.log("Inserting a new Friend into the database...");
-    const friend = new Friend();
-    friend.first_name = "Mathew";
-    friend.last_name = "Ribble";
-    await connection.manager.save(friend);
-    console.log("Saved a new Friend with id: " + friend.id);
+    // Generic error handling middleware.
+    app.use(bodyParser());
+    app.use(async (ctx: Koa.Context, next: () => Promise<any>) => {
+    try {
+        await next();
+    } catch (error) {
+        ctx.status = error.statusCode || error.status || HttpStatus.StatusCodes.INTERNAL_SERVER_ERROR;
+        error.status = ctx.status;
+        ctx.body = { error };
+        ctx.app.emit('error', error, ctx);
+    }
+    });
 
-    console.log("Loading Friends from the database...");
-    const Friends = await connection.manager.find(Friend);
-    console.log("Loaded Friends: ", Friends);
+    // Initial route
+    app.use(FriendController.routes());
+    app.use(FriendController.allowedMethods());
 
-    console.log("Here you can setup and run express/koa/any other framework.");
+    // Application error logging.
+    app.on('error', console.error);
 
-    
+    app.listen(3000);
 
 }).catch(error => console.log(error));
