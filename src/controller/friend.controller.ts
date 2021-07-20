@@ -3,30 +3,13 @@ import * as Router from 'koa-router';
 import { getRepository, Repository } from 'typeorm';
 import { Friend } from '../entity/Friend'
 import * as HttpStatus from 'http-status-codes';
-import joi = require("joi");
-import validate = require("koa-joi-validate");
+import { FriendIdValidation, PostNewFriendValidation} from '../validate';
 
 const routerOpts: Router.IRouterOptions = {
   prefix: '/friends',
 };
 
 const router: Router = new Router(routerOpts);
-
-const FriendIdValidation = validate({
-	params: {
-		friend_id : joi.number().integer().required()
-	}
-});
-
-const PostNewFriendValidation = validate({
-	body: {
-		first_name : joi.string().required(),
-		last_name : joi.string().required(),
-		nickname : joi.string(),
-		rating: joi.number().integer().min(1).max(10)
-	}
-});
-
 
 router.get('/', async (ctx:Koa.Context) => {
   // Get the friend repository from TypeORM.
