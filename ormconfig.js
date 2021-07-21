@@ -9,13 +9,13 @@ module.exports = {
    "database": process.env.POSTGRES_DB,
    "synchronize": false,
    "entities": [
-       "./src/entity/*.{ts,js}"
+       "./src/entities/*.{ts,js}"
    ],
    "migrations": [
-       "./src/migration/*.{ts,js}"
+       "./src/migrations/*.{ts,js}"
    ],
    "cli": {
-       "entitiesDir": "./src/entity",
-       "migrationsDir": "./src/migration"
+       "entitiesDir": "./src/entities",
+       "migrationsDir": "./src/migrations"
    }
 }

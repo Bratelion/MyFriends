@@ -1,17 +1,11 @@
 import * as Koa from 'koa';
 import * as Router from 'koa-router';
 import { getRepository, Repository } from 'typeorm';
-import { Friend } from '../entity/Friend'
+import { Friend } from '../entities/friend'
 import * as HttpStatus from 'http-status-codes';
-import { FriendIdValidation, PostNewFriendValidation} from '../validate';
 
-const routerOpts: Router.IRouterOptions = {
-  prefix: '/friends',
-};
 
-const router: Router = new Router(routerOpts);
-
-router.get('/', async (ctx:Koa.Context) => {
+export const getAllFriends = async (ctx:Koa.Context) => {
   // Get the friend repository from TypeORM.
   const friendRepo:Repository<Friend> = getRepository(Friend);
 
@@ -22,9 +16,9 @@ router.get('/', async (ctx:Koa.Context) => {
   ctx.body = {
     status : "All your friends from FriendList", Friends, 
   };
-});
+}
 
-router.get('/:friend_id', FriendIdValidation, async (ctx:Koa.Context) => {
+export const getFriendById = async (ctx:Koa.Context) => {
   // Get the Friend repository from TypeORM.
   const friendRepo:Repository<Friend> = getRepository(Friend);
 
@@ -41,15 +35,15 @@ router.get('/:friend_id', FriendIdValidation, async (ctx:Koa.Context) => {
   ctx.body = {
 	  status : "Friend with id = " + ctx.params.friend_id, FriendById, 
   };
-});
+}
 
-router.post('/', PostNewFriendValidation, async (ctx:any) => {
+export const postNewFriend = async (ctx:any) => {
   // Get the Friend repository from TypeORM.
   const friendRepo:Repository<Friend> = getRepository(Friend);
 
-  const NewFriend: Friend = new Friend();
-
   const { first_name, last_name, nickname, rating} = ctx.request.body;
+  
+  const NewFriend: Friend = new Friend();
   NewFriend.first_name = first_name;
   NewFriend.last_name = last_name;
   NewFriend.nickname = nickname;
@@ -64,9 +58,9 @@ router.post('/', PostNewFriendValidation, async (ctx:any) => {
   ctx.body = { 
 	  status : "Added to FriendList", NewFriend, 
   };
-});
+}
 
-router.delete('/:friend_id', FriendIdValidation, async (ctx:Koa.Context) => {
+export const deleteFriend = async (ctx:Koa.Context) => {
 	// Get the friend repository from TypeORM.
 	const friendRepo:Repository<Friend> = getRepository(Friend);
   
@@ -88,8 +82,4 @@ router.delete('/:friend_id', FriendIdValidation, async (ctx:Koa.Context) => {
   ctx.body = { 
     status : "Deleted from FriendList", DeleteFriend, 
   };
-  });
-
-
-
-export default router;
+}

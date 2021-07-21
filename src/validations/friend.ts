@@ -1,7 +1,13 @@
 import joi = require("joi");
 import validate = require("koa-joi-validate");
 
-const PostNewFriendValidation = validate({
+export const friendIdValidation = validate({
+	params: {
+		friend_id : joi.number().integer().required()
+	}
+});
+
+export const postNewFriendValidation = validate({
 	body: {
 		first_name : joi.string().required(),
 		last_name : joi.string().required(),
@@ -9,5 +15,3 @@ const PostNewFriendValidation = validate({
 		rating: joi.number().integer().min(1).max(10)
 	}
 });
-
-export default PostNewFriendValidation;

@@ -4,7 +4,7 @@ import * as Koa from 'koa';
 import * as HttpStatus from 'http-status-codes';
 import * as bodyParser from 'koa-bodyparser';
 
-import FriendController from "./controller/friend.controller";
+import FriendRouter from "./routes/friend";
 
 const app:Koa = new Koa();
 
@@ -23,11 +23,9 @@ createConnection().then(async connection => {
     }
     });
 
-    // Initial route
-    app.use(FriendController.routes());
-    app.use(FriendController.allowedMethods());
+    app.use(FriendRouter.routes());
+    app.use(FriendRouter.allowedMethods());
 
-    // Application error logging.
     app.on('error', console.error);
 
     app.listen(3000);
