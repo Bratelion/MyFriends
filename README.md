@@ -11,7 +11,7 @@ Steps to run this project:
 1. Run `npm run migration:generate "NAME"` to generate new migration schema
 2. Run `npm run migration:run` to run the migrations
 
-Migrations are set to generate and run prior to `npm start` inside Docker container, so your only job is entity changes
+Migrations are set to run prior to `npm start` inside Docker container, so your only job is entity changes and generation of migrations in CLI of app in docker
 
 # Methods
 Start sending requests to fill up the database:
