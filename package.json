@@ -1,5 +1,5 @@
 {
-   "name": "MyFriends",
+   "name": "my_friends",
    "version": "0.0.1",
    "description": "Awesome project developed with TypeORM.",
    "devDependencies": {
@@ -22,7 +22,7 @@
       "typeorm": "^0.2.34"
    },
    "scripts": {
-      "start": "ts-node src/index.ts",
+      "start": "ts-node server/index.ts",
       "typeorm": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js",
       "migration:generate": "ts-node node_modules/.bin/typeorm migration:generate -n",
       "migration:run": "ts-node node_modules/.bin/typeorm migration:run"
